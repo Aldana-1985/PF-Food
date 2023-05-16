@@ -16,6 +16,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavBarMenu } from './NavBarMenu';
 import { TemporaryDrawer } from './Drawer';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -87,7 +88,7 @@ export default function PrimarySearchAppBar() {
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
-
+  const {loginWithRedirect, user, isAuthenticated, logout} = useAuth0()
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ background: '#3A506B' }} open={open}>
@@ -135,7 +136,8 @@ export default function PrimarySearchAppBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              {isAuthenticated?<><img src={user.picture} alt={user.name} style={{ borderRadius: '50%', maxWidth:'3rem' }}/></>:<><AccountCircle /></>}
+              
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

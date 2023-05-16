@@ -125,6 +125,28 @@ overflow: hidden;
   transform: rotate(-10deg);
 }
 
+.divUser{
+  position: relative;
+  top:30vh;
+  left:45vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  max-width: 9rem;
+  background-color: #323232;
+  border:none;
+  margin:2rem;
+  color:white;
+  font-size: 13px;
+  border-radius: 15%;
+  padding-bottom: 2rem;
+  transform: rotate(-10deg);
+}
+
+
+
 .container_carousel {
   /* border:3px solid black; */
   position: absolute;
