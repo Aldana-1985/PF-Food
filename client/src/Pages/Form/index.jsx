@@ -1,11 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
 import styles from "./styles.module.css";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TextField, Box, Button, Container, Select, MenuItem, InputLabel } from "@mui/material";
 
 
 export default function Form() {
+  const navigate = useNavigate();
   const [imageFile,setImageFile] = useState(null)
   const [restorants, setRestorants] = useState({
     name: "",
@@ -71,6 +72,7 @@ export default function Form() {
             capacity: ""
           });
           alert('Restaurante creado');
+          navigate('/formPlatos');
         })
         .catch((error) => {
           console.error(error);
