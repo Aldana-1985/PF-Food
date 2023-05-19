@@ -2,10 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import styles from "./styles.module.css";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 import { TextField, Box, Button, Container } from "@mui/material";
 import { useRef } from "react";
 
+
 export default function Form() {
+  const navigate = useNavigate();
   const [restorants, setRestorants] = useState({
     name: "",
     description: "",
@@ -35,6 +38,7 @@ export default function Form() {
     event.preventDefault();
     if (restorants.name && restorants.city && restorants.country && restorants.adress && restorants.description && restorants.capacity) {
       axios.post("https://pf-backend-production-5a61.up.railway.app/restaurants", restorants)
+      alert('Restaurante creado')
       setErrors({});
       setRestorants({
         name: "",
@@ -48,7 +52,7 @@ export default function Form() {
         tags: [],
         capacity: ""
       });
-      alert('Restaurante creado')
+      navigate('/formPlatos');
     } else {
       alert('Información incompleta');
     }
