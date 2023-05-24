@@ -17,6 +17,7 @@ import Landing from "./Pages/Landing/index.jsx";
 import MenuCliente from "./Pages/MenuClientes";
 import RestoHome from "./Pages/RestoHome";
 import AdminUser from "./View/AdminUsers";
+import Dashboard from "./View/Dashboard/RestaurantDashboard";
 import Loading_Login from "./View/Loading";
 import UserType from "./View/SelectType";
 import styles from "./styles.module.css";
@@ -74,6 +75,7 @@ function App() {
                     <Route path="add_food" element={<FormPlatos />} />
                     <Route path="menu" />
                     <Route path="reservas" element={<Reservas />} />
+                    <Route path="dashboard" element={<Dashboard />} />
                   </Route>
                 </Route>
                 {/* -------------------------------------------------------------------------------------- */}
