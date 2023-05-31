@@ -5,7 +5,7 @@ import { SimpleCard } from '../../Components/Card/index';
 import PaginationRounded from "../../Components/Paginado";
 import SelectSmall from '../../Components/Select';
 import { getRestorants } from "../../Redux/actions";
-import { LOCATION, ORDER, RATING, TAGS } from '../../dataHardcodeo/constants'; // Cuando tengamos la info del backend esto hay que sacarlo
+import { LOCATION, ORDER, RATING } from '../../dataHardcodeo/constants'; // Cuando tengamos la info del backend esto hay que sacarlo
 import styles from "./styles.module.css";
 import React from 'react';
 import { Typography, List, ListItem, Button } from '@mui/material';
@@ -20,15 +20,14 @@ export default function Home() {
   const [order, setOrder] = useState('');
   const [rating, setRating] = useState('');
   const [searchName] = useState("")
-  const [tag, setTag] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
 
   useEffect(() => {
-    if (order || rating || city || tag) {
-      dispatch(getRestorants({ order, rating, searchName, city, tag }));
+    if (order || rating || city ) {
+      dispatch(getRestorants({ order, rating, searchName, city }));
     }
-  }, [dispatch, order, rating, city, tag, searchName]);
+  }, [dispatch, order, rating, city, searchName]);
 
   useEffect(() => {
     if (!restorants.documents) dispatch(getRestorants({}));
@@ -60,19 +59,6 @@ export default function Home() {
     }
   };
 
-  const handleChangeTags = (tg) => {
-    if (tag.includes(tg)) {
-      setTag((prevTags) => prevTags.filter((tag) => tag !== tg));
-      setSelectedFilters((prevFilters) => prevFilters.filter((filter) => !filter.startsWith('Tag')));
-    } else {
-      setTag((prevTags) => [...prevTags, tg]);
-      setSelectedFilters((prevFilters) => {
-        const updatedFilters = prevFilters.filter((filter) => !filter.startsWith('Tag'));
-        return [...updatedFilters, `Tag: ${tg}`];
-      });
-    }
-  };
-
   const handleChangeRating = (rtg) => {
     if (rating === rtg) {
       setRating('')
@@ -93,14 +79,12 @@ export default function Home() {
       setCity('');
     } else if (filter.startsWith('Alfabet')) {
       setOrder('');
-    } else if (filter.startsWith('Tags')) {
-      setTag((prevTags) => prevTags.filter((tag) => `Tag: ${tag}` !== filter));
     } else if (filter.startsWith('Valoracion')) {
       setRating('');
     }
   };
   
-  console.log('Filters:', { city, rating, order, tag });
+  console.log('Filters:', { city, rating, order });
 
   return (
     <>
@@ -109,7 +93,7 @@ export default function Home() {
         <div>
           <div className={styles.paginate}>
             <div className={styles.paginationContainer}> {/* Nuevo contenedor */}
-              <PaginationRounded filters={{ city, rating, order, tag }} />
+              <PaginationRounded filters={{ city, rating, order }} />
             </div>
           </div>
         <div className={styles.homeContainer}>
@@ -138,15 +122,6 @@ export default function Home() {
             <List>
               {ORDER.map((option) => (
                 <ListItem key={option.id} button onClick={() => handleChangeOrder(option.id)}>
-                  <Typography>{option.name}</Typography>
-                </ListItem>
-              ))}
-            </List>
-      
-            <Typography variant="h6">Tag</Typography>
-            <List>
-              {TAGS.map((option) => (
-                <ListItem key={option.id} button onClick={() => handleChangeTags(option.id)}>
                   <Typography>{option.name}</Typography>
                 </ListItem>
               ))}

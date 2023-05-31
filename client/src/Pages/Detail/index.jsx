@@ -92,7 +92,7 @@ function Detail() {
       <div>
         <BasicButtons/>
       </div>
-      <Review></Review>
+      <Review restoId={restoId} ></Review>
     </div>
 }
     
